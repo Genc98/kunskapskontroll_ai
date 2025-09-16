@@ -16,13 +16,19 @@ sex = st.selectbox("Sex", ["female", "male"])
 smoker = st.selectbox("Smoker", ["no", "yes"])
 region = st.selectbox("Region", ["southwest", "southeast", "northwest", "northeast"])
 
-X_cat = np.array([[sex,smoker,region]])
-X_cat_encoded = encode.transform(X_cat)
+X_input_df = pd.DataFrame({
+    "age": [age],
+    "bmi": [bmi],
+    "children": [children],
+    "sex": [sex],
+    "smoker": [smoker],
+    "region": [region]
+})
 
+X_encoded = encode.transform(X_input_df[["sex","smoker","region"]])
 
-X_input = np.hstack([[age, bmi, children], X_cat_encoded[0]])
-
+X_input = np.hstack([X_input_df.drop(["sex","smoker","region"], axis=1).values, X_encoded])
 
 if st.button("Predict"):
-    pred = best_model.predict([X_input])
+    pred = best_model.predict(X_input)
     st.write(pred)
