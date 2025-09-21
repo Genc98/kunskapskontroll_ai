@@ -6,7 +6,7 @@ import joblib
 best_model = joblib.load("best_model.pkl")
 encode = joblib.load("encode.pkl")
 
-st.title("Mecdical Cost Prediction")
+st.title("Medical Cost Prediction")
 
 age = st.number_input("Age", min_value=0, max_value=120, value=30)
 bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=25.0, step=0.1)
